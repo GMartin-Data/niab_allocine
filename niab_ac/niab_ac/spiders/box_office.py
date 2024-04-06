@@ -13,7 +13,7 @@ class BoxOfficeSpider(scrapy.Spider):
     start_urls = ["https://www.allocine.fr/boxoffice/france/"]
 
     custom_settings = {
-        'ITEM_PIPELINES': {"allocine.pipelines.BoxOfficePipeline": 100}
+        'ITEM_PIPELINES': {"niab_ac.pipelines.BoxOfficePipeline": 100}
     }
 
     def parse(self, response):
