@@ -6,7 +6,6 @@
 import scrapy
 
 
-class NiabAcItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class BoxOfficeItem(scrapy.Item):
+    film_id = scrapy.Field()
+    entries = scrapy.Field()
