@@ -6,8 +6,18 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+from loguru import logger
 
 
-class NiabAcPipeline:
+class BoxOfficePipeline:
+    @logger.catch
     def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+
+        film_id = adapter.get("film_id")
+        item["film_id"] = int(film_id)
+
+        entries = adapter.get("entries").replace(" ", "")
+        item["entries"] = int(entries)
+   
         return item
