@@ -5,6 +5,7 @@ from loguru import logger
 import scrapy
 
 from niab_ac.items import FilmItem
+from niab_ac.utils import convert_dates
 
 
 BASE_URL = "https://www.allocine.fr"
@@ -12,29 +13,6 @@ BASE_URL = "https://www.allocine.fr"
 # Logger Setup
 logs_path = 'logs/incoming_logfile.log'
 logger.add(logs_path, level="ERROR")
-
-
-def convert_dates(date: str) -> str:
-    """Convert Allocine's dates to 'YYYY-MM-DD' format"""
-    date = date.split()
-    MONTH_MAPPING = {
-        "janvier": "01",
-        "février": "02",
-        "mars": "03",
-        "avril": "04",
-        "mai": "05",
-        "juin": "06",
-        "juillet": "07",
-        "août": "08",
-        "septembre": "09",
-        "octobre": "10",
-        "novembre": "11",
-        "décembre": "12"
-    }
-    date[1] = MONTH_MAPPING[date[1]]
-    # Pad with 0 the 1-number days' strings
-    date[0] = "0" + date[0] if len(date[0]) == 1 else date[0]
-    return "-".join(reversed(date))
 
 
 class IncomingFilmsSpider(scrapy.Spider):
