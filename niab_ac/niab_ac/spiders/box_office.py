@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import datetime, timedelta
 import re
 
 from loguru import logger
@@ -39,10 +39,10 @@ class BoxOfficeSpider(scrapy.Spider):
     def get_next_page_url(self, response):
         BASE_URL = "https://www.allocine.fr/boxoffice/france/sem-"
         if "sem-" not in response.url:
-            curr_date = date.today()
+            curr_date = datetime.today()
         else:
             curr_date_str = response.url[-11:-1]
-            curr_date = date.strptime(curr_date_str, "%Y-%m-%d")
+            curr_date = datetime.strptime(curr_date_str, "%Y-%m-%d")
         next_date = curr_date - timedelta(days=7)
         next_date_str = next_date.strftime("%Y-%m-%d")
         next_page_url = f"{BASE_URL}{next_date_str}/"
