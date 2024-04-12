@@ -24,4 +24,5 @@ class FilmItem(scrapy.Item):
     director = scrapy.Field()
     casting = scrapy.Field()
     societies = scrapy.Field()
+    copies = scrapy.Field()
     entries = scrapy.Field()
