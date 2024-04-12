@@ -101,6 +101,13 @@ class IncomingFilmsSpider(scrapy.Spider):
                     # Budget
                     budget_span = response.xpath("//span[contains(text(), 'Budget')]")
                     item["budget"] = budget_span.xpath('.//following-sibling::node()/text()').get()
+                    # Copies
+                    raw_copies = response.xpath('//span[@class="txt" and contains(text(), "Séances")]/text()').get()
+                    try:
+                        copies = int(re.search(r"\d+", raw_copies).group())
+                        item["copies"] = copies
+                    except BaseException:
+                        item["copies"] = None
 
                     # Follow the casting page
                     casting_page_url = f"https://www.allocine.fr/film/fichefilm-{item['film_id']}/casting/"
