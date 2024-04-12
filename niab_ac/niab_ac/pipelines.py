@@ -66,12 +66,12 @@ class CleanPipeline:
         else:
             adapter["budget"] = None
 
-        # Societies (remove duplicates, then join)
-        societies = adapter.get("societies")
-        try:
-            societies = set(item.strip() for item in societies)
-            adapter["societies"] = "|".join(societies)
-        except BaseException:
-            adapter["societies"] = None
+        # # Societies (remove duplicates, then join)
+        # societies = adapter.get("societies")
+        # try:
+        #     societies = set(item.strip() for item in societies)
+        #     adapter["societies"] = "|".join(societies)
+        # except BaseException:
+        #     adapter["societies"] = None
    
         return item

@@ -98,6 +98,9 @@ class IncomingFilmsSpider(scrapy.Spider):
 
                     item["synopsis"] = response.css("section#synopsis-details div.content-txt p::text").get()
                     item["nationality"] = response.css("span.nationality::text").getall()
+                    # Distributor
+                    prev_sel = response.xpath('//span[@class="what light" and contains(text(), "Distributeur")]')
+                    item["distributor"] = prev_sel.xpath('following-sibling::node()[2]/text()').get().strip()
                     # Budget
                     budget_span = response.xpath("//span[contains(text(), 'Budget')]")
                     item["budget"] = budget_span.xpath('.//following-sibling::node()/text()').get()
@@ -123,8 +126,8 @@ class IncomingFilmsSpider(scrapy.Spider):
         item = response.meta["item"]
         item["director"] = response.css('section.casting-director a::text').getall()
         item["casting"] = response.css('section.casting-actor *.meta-title-link::text').getall()
-        societies_fields = response.css('div.gd-col-left div.casting-list-gql')[-1]
-        item["societies"] = societies_fields.css("div.md-table-row span.link::text").getall()
+        # societies_fields = response.css('div.gd-col-left div.casting-list-gql')[-1]
+        # item["societies"] = societies_fields.css("div.md-table-row span.link::text").getall()
 
         # Don't forget the target! ;)
         item["entries"] = None
